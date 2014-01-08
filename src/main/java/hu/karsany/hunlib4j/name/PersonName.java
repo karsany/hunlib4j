@@ -1,7 +1,10 @@
 package hu.karsany.hunlib4j.name;
 
 /**
- * Created by fkarsany on 2014.01.07..
+ * PersonName - személynév osztály
+ *
+ * tartalmazza a vezetéknevet, két keresztnevet, és két titulust.
+ *
  */
 public class PersonName {
 

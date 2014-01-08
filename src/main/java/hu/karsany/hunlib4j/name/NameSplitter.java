@@ -3,14 +3,20 @@ package hu.karsany.hunlib4j.name;
 import java.util.List;
 
 /**
- * Created by fkarsany on 2014.01.07..
+ * Névdaraboló osztály
  */
 public final class NameSplitter {
 
     private NameSplitter() {
     }
 
-
+    /**
+     * Feldarabolja a paraméterként kapott nevet. Használati esetekért
+     * lásd a NameSplitterTest teszt osztályt.
+     *
+     * @param name összetett név
+     * @return darabolt személynév
+     */
     public static PersonName splitName(String name) {
         PersonName personName = new PersonName();
 
