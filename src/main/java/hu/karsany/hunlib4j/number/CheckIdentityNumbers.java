@@ -2,6 +2,9 @@ package hu.karsany.hunlib4j.number;
 
 /**
  * Személyes azonosítószámok ellenőrzésére szolgáló csomag.
+ *
+ * @author Ferenc Karsány
+ * @since 1.0
  */
 public final class CheckIdentityNumbers {
 

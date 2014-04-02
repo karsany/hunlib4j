@@ -9,7 +9,6 @@ package hu.karsany.hunlib4j.text;
  *
  * @author Karsány Ferenc
  * @since 1.0
- *
  */
 public final class NumberToString {
 

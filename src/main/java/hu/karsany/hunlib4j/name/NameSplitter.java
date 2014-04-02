@@ -3,7 +3,10 @@ package hu.karsany.hunlib4j.name;
 import java.util.List;
 
 /**
- * Névdaraboló osztály
+ * Névdaraboló osztály.
+ *
+ * @author Ferenc Karsány
+ * @since 1.0
  */
 public final class NameSplitter {
 

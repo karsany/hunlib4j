@@ -2,9 +2,11 @@ package hu.karsany.hunlib4j.name;
 
 /**
  * PersonName - személynév osztály
- *
+ * <p/>
  * tartalmazza a vezetéknevet, két keresztnevet, és két titulust.
  *
+ * @author Ferenc Karsány
+ * @since 1.0
  */
 public class PersonName {
 

@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Alap név funkciók
  */
-public final class NameFunctions {
+final class NameFunctions {
     private NameFunctions() {
     }
 
