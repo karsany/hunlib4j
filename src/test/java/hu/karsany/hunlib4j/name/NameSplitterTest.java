@@ -1,6 +1,6 @@
 package hu.karsany.hunlib4j.name;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**

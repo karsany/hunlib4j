@@ -18,7 +18,6 @@ public class PersonName {
     }
 
     public PersonName(String lastName, String firstName1, String firstName2, String beforeTitle, String afterTitle) {
-
         this.lastName = lastName;
         this.firstName1 = firstName1;
         this.firstName2 = firstName2;

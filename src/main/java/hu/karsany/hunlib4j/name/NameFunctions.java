@@ -11,14 +11,17 @@ public final class NameFunctions {
     }
 
     /**
-     * Eldönti egy stringről, hogy titulus-e. Teljesen alap, használhatatlan verzió.
+     * Eldönti egy stringről, hogy titulus-e. A titulusok a resources/name/TITULUS.txt-ben
+     * vannak fölsorolva soronként. Új titulus esetén ezt szükséges bővíteni.
      *
      * @param s string bemenet
      * @return igaz, ha titulus, hamis ha nem titulus
-     * @todo egyelőre csak a Dr. titulust kezeli.
      */
     public static boolean isTitle(String s) {
-        return (s.toUpperCase().trim().equals("DR."));
+        if (s == null) {
+            return false;
+        }
+        return TitulusSet.getInstance().contains(s.toUpperCase().trim());
     }
 
     /**

@@ -1,14 +1,20 @@
 package hu.karsany.hunlib4j.text;
 
 /**
- * @DEVELOPMENT
- * @BETA Számok (összegek) átalakítása a magyer helyesírás szabályok szerinti szöveggé
+ * Számok (összegek) átalakítása a magyer helyesírás szabályok szerinti szöveggé
  * <p/>
  * Alkalmas például számlák, csekkek végösszegénél feltüntetni az összeget betűvel.
  * <p/>
  * Pl. azaz huszonhárom forint.
+ *
+ * @author Karsány Ferenc
+ * @since 1.0
+ *
  */
 public final class NumberToString {
+
+    private NumberToString() {
+    }
 
     /**
      * Egy számot kiír betűvel, a magyar helyesírási szabályoknak megfelelően
@@ -31,8 +37,6 @@ public final class NumberToString {
 
         String ret = "";
         String bele = n < 2000 ? "" : "-";
-        boolean csoportFlag = false;
-
 
         while (aktualisHatralevo != 0) {
             int utolsoSzamjegy = aktualisHatralevo % 10;
@@ -41,11 +45,9 @@ public final class NumberToString {
             if (helyiertek == 1) {
                 ret = egyesek[utolsoSzamjegy] + ret;
             } else if ((helyiertek - 1) % 3 == 0) {
-                //if (utolsoSzamjegy != 0) {
                 String s = "";
                 s = helyiertek == 4 ? "ezer" : helyiertek == 7 ? "millió" : helyiertek == 10 ? "milliárd" : "";
                 ret = szazasok[utolsoSzamjegy] + s + bele + ret;
-                //}
             } else if ((helyiertek - 2) % 3 == 0) {
                 ret = tizesek[utolsoSzamjegy] + ret;
             } else if (helyiertek % 3 == 0) {
