@@ -36,7 +36,7 @@ import java.util.Set;
 class TitulusSet implements Set<String> {
 
     private static TitulusSet titulusSet;
-    private static Set<String> titulusok;
+    private Set<String> titulusok;
 
     private TitulusSet() throws IOException {
         InputStream resourceAsStream = this.getClass().getResourceAsStream("/name/TITULUS.txt");
