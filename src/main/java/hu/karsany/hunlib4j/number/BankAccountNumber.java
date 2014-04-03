@@ -25,6 +25,12 @@ package hu.karsany.hunlib4j.number;
 
 import java.security.InvalidParameterException;
 
+/**
+ * Bankszámlaszámok kezelésésre szolgáló csomag.
+ *
+ * @author Ferenc Karsány
+ * @since 1.0
+ */
 public final class BankAccountNumber {
 
     private BankAccountNumber() {
