@@ -9,6 +9,7 @@ Aktuális funkciók
   * NameSplitter.splitName - nevek darabolása
   * BankAccountNumber.getBankFiok - bank/bankfiók lekérdezése számlaszám (első nyolc jegye) alapján
   * CheckIdentityNumbers.checkTAJ - TAJ szám ellenőrző
+  * CheckIdentityNumbers.checkPersonalTaxNumber - Adóazonosító jel ellenőrző
   * NumberToString.toString - számjegyekkel jelölt számnevet betűvel kiír
 
 Ötlet, javaslat, fejlesztés
