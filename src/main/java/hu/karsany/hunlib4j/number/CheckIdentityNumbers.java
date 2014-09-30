@@ -35,7 +35,17 @@ public final class CheckIdentityNumbers {
     private CheckIdentityNumbers() {
     }
 
-
+    /**
+     * Azonosító szám hibák:
+     * <ul>
+     * <li>OK - helyes azonosító szám</li>
+     * <li>EMPTY - ha üres</li>
+     * <li>LENGTH_ERROR - ha a hossz nem megfelelő</li>
+     * <li>FORMAT_ERROR - ha nem illeszkedik a szükséges formára</li>
+     * <li>OTHER_ERROR - egyéb hiba, a konkrét eljárásban van definiálva a hiba oka</li>
+     * <li>CDV_ERROR - ha az ellenőrző szám nem egyezik az utolsó számjeggyel</li>
+     * </ul>
+     */
     public enum IdentityNumberError {
         OK, EMPTY, LENGTH_ERROR, FORMAT_ERROR, OTHER_ERROR, CDV_ERROR
     }
@@ -69,7 +79,7 @@ public final class CheckIdentityNumbers {
         }
 
         try {
-            String tesztTaj = "000000000" + String.valueOf(Integer.parseInt(taj));
+            String tesztTaj = "000000000" + Integer.parseInt(taj);
             if (!tesztTaj.endsWith(taj)) {
                 return IdentityNumberError.FORMAT_ERROR;
             }
@@ -105,14 +115,14 @@ public final class CheckIdentityNumbers {
      * azonos napon születettek megkülönböztetésére használt (pl. véletlenszerűen generált) számsorozat,
      * a tizedik számjegy pedig egy ellenőrző-összeg.
      * </p>
-     *
+     * <p/>
      * <p>Visszatérési értékek</p>
      * <ul>
-     *     <li>EMPTY - ha üres</li>
-     *     <li>LENGTH_ERROR - ha nem 10 hosszú</li>
-     *     <li>FORMAT_ERROR - ha nem szám vagy nem 8-assal kezdődik</li>
-     *     <li>OTHER_ERROR - ha az ellenőrző szám 10-re jön ki (nem kiadható adóazonosító jel)</li>
-     *     <li>CDV_ERROR - ha az ellenőrző szám nem egyezik az utolsó számjeggyel</li>
+     * <li>EMPTY - ha üres</li>
+     * <li>LENGTH_ERROR - ha nem 10 hosszú</li>
+     * <li>FORMAT_ERROR - ha nem szám vagy nem 8-assal kezdődik</li>
+     * <li>OTHER_ERROR - ha az ellenőrző szám 10-re jön ki (nem kiadható adóazonosító jel)</li>
+     * <li>CDV_ERROR - ha az ellenőrző szám nem egyezik az utolsó számjeggyel</li>
      * </ul>
      *
      * @param personalTaxNumber adóazonosító jel
@@ -130,7 +140,7 @@ public final class CheckIdentityNumbers {
         }
 
         try {
-            String s = "0000000000" + String.valueOf(Long.parseLong(personalTaxNumber));
+            String s = "0000000000" + Long.parseLong(personalTaxNumber);
             if (!s.endsWith(personalTaxNumber)) {
                 return IdentityNumberError.FORMAT_ERROR;
             }
@@ -138,7 +148,7 @@ public final class CheckIdentityNumbers {
             return IdentityNumberError.FORMAT_ERROR;
         }
 
-        if (!personalTaxNumber.substring(0, 1).equals("8")) {
+        if (!"8".equals(personalTaxNumber.substring(0, 1))) {
             return IdentityNumberError.FORMAT_ERROR;
         }
 

@@ -57,7 +57,7 @@ class TitulusSet implements Set<String> {
             try {
                 titulusSet = new TitulusSet();
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                throw new RuntimeException("Cannot open resource TITULUS.txt", e);
             }
         }
 

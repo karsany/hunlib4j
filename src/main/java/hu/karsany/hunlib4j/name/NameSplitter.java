@@ -109,14 +109,14 @@ public final class NameSplitter {
                 }
             }
 
-            if (titles.size() >= 1) {
+            if (!titles.isEmpty()) {
                 personName.setBeforeTitle(titles.get(0));
-            }
 
-            if (titles.size() >= 2) {
-                personName.setAfterTitle(titles.get(1));
-            }
+                if (titles.size() >= 2) {
+                    personName.setAfterTitle(titles.get(1));
+                }
 
+            }
 
         }
 

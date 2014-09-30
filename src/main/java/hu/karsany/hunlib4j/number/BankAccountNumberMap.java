@@ -34,7 +34,7 @@ class BankAccountNumberMap implements Map<String, String> {
 
     private static BankAccountNumberMap instance;
 
-    private HashMap<String, String> bankAccounts;
+    private Map<String, String> bankAccounts;
 
     private BankAccountNumberMap() {
         this.bankAccounts = new HashMap<String, String>();
@@ -51,7 +51,7 @@ class BankAccountNumberMap implements Map<String, String> {
                 this.bankAccounts.put(bankData[0], bankData[1]);
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Cannot open resource BANKKODOK.txt", e);
         }
 
     }
