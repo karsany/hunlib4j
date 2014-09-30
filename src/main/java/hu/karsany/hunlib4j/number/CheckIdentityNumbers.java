@@ -35,8 +35,9 @@ public final class CheckIdentityNumbers {
     private CheckIdentityNumbers() {
     }
 
+
     public enum IdentityNumberError {
-        OK, EMPTY, LENGTH_ERROR, FORMAT_ERROR, CDV_ERROR
+        OK, EMPTY, LENGTH_ERROR, FORMAT_ERROR, OTHER_ERROR, CDV_ERROR
     }
 
     /**
@@ -57,7 +58,7 @@ public final class CheckIdentityNumbers {
      * @param taj társadalom biztosítási szám
      * @return hibakód
      */
-    public static IdentityNumberError checkTAJ(String taj) {
+    public static IdentityNumberError checkTAJ(final String taj) {
 
         if (taj == null || taj.isEmpty()) {
             return IdentityNumberError.EMPTY;
@@ -94,5 +95,70 @@ public final class CheckIdentityNumbers {
 
         return IdentityNumberError.OK;
     }
+
+    /**
+     * Adóazonosító jel ellenőrzése
+     * </p>
+     * <p>
+     * A magánszemélyek adóazonosító jele 10 számjegyből áll: az első mindig a "8"-as szám, a 2.-6. számjegyek az
+     * adott személy születési dátuma és 1867. január 1. között eltelt napok száma, a 7.-9. számjegyek az
+     * azonos napon születettek megkülönböztetésére használt (pl. véletlenszerűen generált) számsorozat,
+     * a tizedik számjegy pedig egy ellenőrző-összeg.
+     * </p>
+     *
+     * <p>Visszatérési értékek</p>
+     * <ul>
+     *     <li>EMPTY - ha üres</li>
+     *     <li>LENGTH_ERROR - ha nem 10 hosszú</li>
+     *     <li>FORMAT_ERROR - ha nem szám vagy nem 8-assal kezdődik</li>
+     *     <li>OTHER_ERROR - ha az ellenőrző szám 10-re jön ki (nem kiadható adóazonosító jel)</li>
+     *     <li>CDV_ERROR - ha az ellenőrző szám nem egyezik az utolsó számjeggyel</li>
+     * </ul>
+     *
+     * @param personalTaxNumber adóazonosító jel
+     * @return hibakód
+     */
+    public static IdentityNumberError checkPersonalTaxNumber(final String personalTaxNumber) {
+
+
+        if (personalTaxNumber == null || personalTaxNumber.isEmpty()) {
+            return IdentityNumberError.EMPTY;
+        }
+
+        if (personalTaxNumber.length() != 10) {
+            return IdentityNumberError.LENGTH_ERROR;
+        }
+
+        try {
+            String s = "0000000000" + String.valueOf(Long.parseLong(personalTaxNumber));
+            if (!s.endsWith(personalTaxNumber)) {
+                return IdentityNumberError.FORMAT_ERROR;
+            }
+        } catch (NumberFormatException e) {
+            return IdentityNumberError.FORMAT_ERROR;
+        }
+
+        if (!personalTaxNumber.substring(0, 1).equals("8")) {
+            return IdentityNumberError.FORMAT_ERROR;
+        }
+
+        int check = 0;
+        for (int i = 1; i <= 9; i++) {
+            check += Integer.parseInt(personalTaxNumber.substring(i - 1, i)) * i;
+        }
+
+        check = check % 11;
+
+        if (check == 10) {
+            return IdentityNumberError.OTHER_ERROR;
+        }
+
+        if (Integer.parseInt(personalTaxNumber.substring(10 - 1, 10)) != check) {
+            return IdentityNumberError.CDV_ERROR;
+        }
+
+        return IdentityNumberError.OK;
+    }
+
 
 }
