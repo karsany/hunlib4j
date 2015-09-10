@@ -23,6 +23,8 @@
 
 package hu.karsany.hunlib4j.number;
 
+import hu.karsany.hunlib4j.exceptions.Hunlib4jException;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,6 +33,8 @@ import java.nio.charset.Charset;
 import java.util.*;
 
 class BankAccountNumberMap implements Map<String, String> {
+
+    private static final String ERR_CANNOT_MODIFY = "Bankszámla prefixeket futás közben módosítani nem lehet.";
 
     private static BankAccountNumberMap instance;
 
@@ -51,7 +55,7 @@ class BankAccountNumberMap implements Map<String, String> {
                 this.bankAccounts.put(bankData[0], bankData[1]);
             }
         } catch (IOException e) {
-            throw new RuntimeException("Cannot open resource BANKKODOK.txt", e);
+            throw new Hunlib4jException("Cannot open resource BANKKODOK.txt", e);
         }
 
     }
@@ -90,22 +94,22 @@ class BankAccountNumberMap implements Map<String, String> {
 
     @Override
     public String put(String key, String value) {
-        throw new UnsupportedOperationException("Bankszámla prefixeket futás közben módosítani nem lehet.");
+        throw new UnsupportedOperationException(ERR_CANNOT_MODIFY);
     }
 
     @Override
     public String remove(Object key) {
-        throw new UnsupportedOperationException("Bankszámla prefixeket futás közben módosítani nem lehet.");
+        throw new UnsupportedOperationException(ERR_CANNOT_MODIFY);
     }
 
     @Override
     public void putAll(Map<? extends String, ? extends String> m) {
-        throw new UnsupportedOperationException("Bankszámla prefixeket futás közben módosítani nem lehet.");
+        throw new UnsupportedOperationException(ERR_CANNOT_MODIFY);
     }
 
     @Override
     public void clear() {
-        throw new UnsupportedOperationException("Bankszámla prefixeket futás közben módosítani nem lehet.");
+        throw new UnsupportedOperationException(ERR_CANNOT_MODIFY);
     }
 
     @Override
