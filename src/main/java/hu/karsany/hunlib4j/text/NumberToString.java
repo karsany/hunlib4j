@@ -25,15 +25,20 @@ package hu.karsany.hunlib4j.text;
 
 /**
  * Számok (összegek) átalakítása a magyer helyesírás szabályok szerinti szöveggé
- * <p/>
+ * <p>
  * Alkalmas például számlák, csekkek végösszegénél feltüntetni az összeget betűvel.
- * <p/>
+ * <p>
  * Pl. azaz huszonhárom forint.
  *
  * @author Karsány Ferenc
  * @since 1.0
  */
 public final class NumberToString {
+
+    private static final String[] EGYESEK = {"#", "egy", "kettő", "három", "négy", "öt", "hat", "hét", "nyolc", "kilenc", "tíz"};
+    private static final String[] TIZESEK = {"#", "tizen", "huszon", "harminc", "negyven", "ötven", "hatvan", "hetven", "nyolcvan", "kilencven"};
+    private static final String[] SZAZASOK = {"#", "egy", "két", "három", "négy", "öt", "hat", "hét", "nyolc", "kilenc"};
+
 
     private NumberToString() {
     }
@@ -50,10 +55,6 @@ public final class NumberToString {
             return "nulla";
         }
 
-        String[] egyesek = {"#", "egy", "kettő", "három", "négy", "öt", "hat", "hét", "nyolc", "kilenc", "tíz"};
-        String[] tizesek = {"#", "tizen", "huszon", "harminc", "negyven", "ötven", "hatvan", "hetven", "nyolcvan", "kilencven"};
-        String[] szazasok = {"#", "egy", "két", "három", "négy", "öt", "hat", "hét", "nyolc", "kilenc"};
-
         int aktualisHatralevo = n;
         int helyiertek = 1;
 
@@ -65,37 +66,39 @@ public final class NumberToString {
             aktualisHatralevo = (aktualisHatralevo - utolsoSzamjegy) / 10;
 
             if (helyiertek == 1) {
-                ret = egyesek[utolsoSzamjegy] + ret;
+                ret = EGYESEK[utolsoSzamjegy] + ret;
             } else if ((helyiertek - 1) % 3 == 0) {
                 String s = "";
                 s = helyiertek == 4 ? "ezer" : helyiertek == 7 ? "millió" : helyiertek == 10 ? "milliárd" : "";
-                ret = szazasok[utolsoSzamjegy] + s + bele + ret;
+                ret = SZAZASOK[utolsoSzamjegy] + s + bele + ret;
             } else if ((helyiertek - 2) % 3 == 0) {
-                ret = tizesek[utolsoSzamjegy] + ret;
-            } else if (helyiertek % 3 == 0) {
-                if (utolsoSzamjegy != 0) {
-                    ret = szazasok[utolsoSzamjegy] + "száz" + ret;
-                }
+                ret = TIZESEK[utolsoSzamjegy] + ret;
+            } else if (helyiertek % 3 == 0 && utolsoSzamjegy != 0) {
+                ret = SZAZASOK[utolsoSzamjegy] + "száz" + ret;
             }
 
             helyiertek = helyiertek + 1;
         }
 
-        ret = ret.replace("tizen#", "tíz");
-        ret = ret.replace("huszon#", "húsz");
-        ret = ret.replace("-##millió", "-");
-        ret = ret.replace("-##ezer", "-");
-        ret = ret.replace("#", "");
-        ret = ret.replaceAll("--*", "-");
-        ret = ret.replaceAll("^millió", "egymillió");
-        ret = ret.replaceAll("^milliárd", "egymilliárd");
-        ret = ret.replaceAll("egyszáz", "száz");
-        ret = ret.replaceAll("egyezer", "ezer");
-
-        ret = ret.trim().replaceAll("-*$", "");
+        ret = cleanCharString(ret);
 
         return ret;
 
+    }
+
+    private static String cleanCharString(String s) {
+        String ss = s.replace("tizen#", "tíz");
+        ss = ss.replace("huszon#", "húsz");
+        ss = ss.replace("-##millió", "-");
+        ss = ss.replace("-##ezer", "-");
+        ss = ss.replace("#", "");
+        ss = ss.replaceAll("--*", "-");
+        ss = ss.replaceAll("^millió", "egymillió");
+        ss = ss.replaceAll("^milliárd", "egymilliárd");
+        ss = ss.replaceAll("egyszáz", "száz");
+        ss = ss.replaceAll("egyezer", "ezer");
+        ss = ss.trim().replaceAll("-*$", "");
+        return ss;
     }
 
 }
