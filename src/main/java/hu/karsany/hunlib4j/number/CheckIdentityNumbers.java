@@ -52,13 +52,13 @@ public final class CheckIdentityNumbers {
 
     /**
      * TAJ szám ellenőrzése.
-     * <p/>
+     * <p>
      * <p>A TAJ szám egy kilenc számjegyből álló szám, amelyben az első nyolc számjegy egy
      * folyamatosan kiadott egyszerű sorszám, amely mindig az előző, utoljára kiadott
      * sorszámból egy hozzáadásával keletkezik.
-     * <p/>
+     * <p>
      * <p>A kilencedik számjegy ellenőrző ún. CDV kód, melynek képzési algoritmusa az alábbi:
-     * <p/>
+     * <p>
      * <ul>
      * <li>A TAJ szám első nyolc számjegyéből a páratlan helyen állókat hárommal,
      * a páros helyen állókat héttel szorozzuk, és a szorzatokat összeadjuk.</li>
@@ -87,19 +87,21 @@ public final class CheckIdentityNumbers {
             return IdentityNumberError.FORMAT_ERROR;
         }
 
-        int no1 = Integer.parseInt(Character.toString(taj.charAt(0)));
-        int no2 = Integer.parseInt(Character.toString(taj.charAt(1)));
-        int no3 = Integer.parseInt(Character.toString(taj.charAt(2)));
-        int no4 = Integer.parseInt(Character.toString(taj.charAt(3)));
-        int no5 = Integer.parseInt(Character.toString(taj.charAt(4)));
-        int no6 = Integer.parseInt(Character.toString(taj.charAt(5)));
-        int no7 = Integer.parseInt(Character.toString(taj.charAt(6)));
-        int no8 = Integer.parseInt(Character.toString(taj.charAt(7)));
-        int no9 = Integer.parseInt(Character.toString(taj.charAt(8)));
+        int[] no = {
+                Integer.parseInt(Character.toString(taj.charAt(0))),
+                Integer.parseInt(Character.toString(taj.charAt(1))),
+                Integer.parseInt(Character.toString(taj.charAt(2))),
+                Integer.parseInt(Character.toString(taj.charAt(3))),
+                Integer.parseInt(Character.toString(taj.charAt(4))),
+                Integer.parseInt(Character.toString(taj.charAt(5))),
+                Integer.parseInt(Character.toString(taj.charAt(6))),
+                Integer.parseInt(Character.toString(taj.charAt(7))),
+                Integer.parseInt(Character.toString(taj.charAt(8)))
+        };
 
-        int cdv = (3 * (no1 + no3 + no5 + no7) + 7 * (no2 + no4 + no6 + no8)) % 10;
+        int cdv = (3 * (no[0] + no[2] + no[4] + no[6]) + 7 * (no[1] + no[3] + no[5] + no[7])) % 10;
 
-        if (cdv != no9) {
+        if (cdv != no[8]) {
             return IdentityNumberError.CDV_ERROR;
         }
 
