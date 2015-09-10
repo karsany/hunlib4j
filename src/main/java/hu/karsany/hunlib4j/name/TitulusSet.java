@@ -23,6 +23,8 @@
 
 package hu.karsany.hunlib4j.name;
 
+import hu.karsany.hunlib4j.exceptions.Hunlib4jException;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -34,6 +36,9 @@ import java.util.Iterator;
 import java.util.Set;
 
 class TitulusSet implements Set<String> {
+
+    private static final String ERR_CANNOT_ADD = "Titulusokhoz futás közben hozzáadni nem lehet.";
+    private static final String ERR_CANNOT_DELETE = "Titulusok közül futás közben törölni nem lehet.";
 
     private static TitulusSet titulusSet;
     private Set<String> titulusok;
@@ -57,7 +62,7 @@ class TitulusSet implements Set<String> {
             try {
                 titulusSet = new TitulusSet();
             } catch (IOException e) {
-                throw new RuntimeException("Cannot open resource TITULUS.txt", e);
+                throw new Hunlib4jException("Cannot open resource TITULUS.txt", e);
             }
         }
 
@@ -96,12 +101,12 @@ class TitulusSet implements Set<String> {
 
     @Override
     public boolean add(String s) {
-        throw new UnsupportedOperationException("Titulusokhoz futás közben hozzáadni nem lehet.");
+        throw new UnsupportedOperationException(ERR_CANNOT_ADD);
     }
 
     @Override
     public boolean remove(Object o) {
-        throw new UnsupportedOperationException("Titulusok közül futás közben törölni nem lehet.");
+        throw new UnsupportedOperationException(ERR_CANNOT_DELETE);
     }
 
     @Override
@@ -111,21 +116,21 @@ class TitulusSet implements Set<String> {
 
     @Override
     public boolean addAll(Collection<? extends String> c) {
-        throw new UnsupportedOperationException("Titulusokhoz futás közben hozzáadni nem lehet.");
+        throw new UnsupportedOperationException(ERR_CANNOT_ADD);
     }
 
     @Override
     public boolean retainAll(Collection<?> c) {
-        throw new UnsupportedOperationException("Titulusok közül futás közben törölni nem lehet.");
+        throw new UnsupportedOperationException(ERR_CANNOT_DELETE);
     }
 
     @Override
     public boolean removeAll(Collection<?> c) {
-        throw new UnsupportedOperationException("Titulusok közül futás közben törölni nem lehet.");
+        throw new UnsupportedOperationException(ERR_CANNOT_DELETE);
     }
 
     @Override
     public void clear() {
-        throw new UnsupportedOperationException("Titulusok közül futás közben törölni nem lehet.");
+        throw new UnsupportedOperationException(ERR_CANNOT_DELETE);
     }
 }
