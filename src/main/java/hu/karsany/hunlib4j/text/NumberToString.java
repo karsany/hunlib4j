@@ -59,7 +59,12 @@ public final class NumberToString {
         int helyiertek = 1;
 
         String ret = "";
-        String bele = n < 2000 ? "" : "-";
+        String bele;
+        if (n <= 2000) {
+            bele = "";
+        } else {
+            bele = "-";
+        }
 
         while (aktualisHatralevo != 0) {
             int utolsoSzamjegy = aktualisHatralevo % 10;

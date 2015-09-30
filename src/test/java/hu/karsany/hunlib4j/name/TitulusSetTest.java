@@ -57,4 +57,10 @@ public class TitulusSetTest {
         Assert.assertEquals(true, titulusSet.contains("DR."));
 
     }
+
+    @Test
+    public void testSingleton() {
+        TitulusSet t2 = TitulusSet.getInstance();
+        Assert.assertEquals(t2, titulusSet);
+    }
 }

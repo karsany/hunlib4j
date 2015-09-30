@@ -12,15 +12,56 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <sonar.exclusions>**/generated-sources/**</sonar.exclusions>
+        <sonar.pitest.mode>active</sonar.pitest.mode>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.11</version>
+            <version>4.12</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <!-- newer versions do not work with Sonar -->
+                <version>0.7.4.201502262128</version>
+                <executions>
+                    <execution>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.pitest</groupId>
+                <artifactId>pitest-maven</artifactId>
+                <version>1.1.7</version>
+                <configuration>
+                    <targetClasses>
+                        <param>hu.karsany.hunlib4j*</param>
+                    </targetClasses>
+                    <targetTests>
+                        <param>hu.karsany.hunlib4j*</param>
+                    </targetTests>
+                    <outputFormats>
+                        <!-- Sonar needs the XML output -->
+                        <outputFormat>XML</outputFormat>
+                        <outputFormat>HTML</outputFormat>
+                    </outputFormats>
+                    <!-- Sonar expects reports to not have timestamps -->
+                    <timestampedReports>false</timestampedReports>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

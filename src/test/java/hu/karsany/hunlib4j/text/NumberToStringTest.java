@@ -73,6 +73,22 @@ public class NumberToStringTest {
         Assert.assertEquals("ötvenhárommillió-egy", NumberToString.toString(53000001));
         Assert.assertEquals("nulla", NumberToString.toString(0));
         Assert.assertEquals("egymilliárd-kilencszázkilencvenkilencmillió-kilencszázkilencvenkilencezer-kilencszázkilencvenkilenc", NumberToString.toString(1999999999));
+        Assert.assertEquals("kétezer", NumberToString.toString(2000));
+        Assert.assertEquals("ezerkilencszázkilencvenkilenc", NumberToString.toString(1999));
+        Assert.assertEquals("ezerkilencszázkilencvennyolc", NumberToString.toString(1998));
+        Assert.assertEquals("kétezer-egy", NumberToString.toString(2001));
+    }
+
+    @Test
+    public void testKotojel() {
+        for (int i = 0; i <= 2000; i++) {
+            String s = NumberToString.toString(i);
+            Assert.assertFalse(s.contains("-"));
+        }
+        for (int i = 2000; i < 20000; i++) {
+            String s = NumberToString.toString(i);
+            Assert.assertTrue((i % 1000 != 0 && s.contains("-")) || (i % 1000 == 0));
+        }
     }
 
 }
